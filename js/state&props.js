@@ -1,36 +1,46 @@
 const Hello = React.createClass({
-  getInitialState: function () {
-    return {
-        name: '1234'
+    getInitialState: function () {
+        return {
+            name: '1234'
+        }
+    },
+    change: function () {
+        this.setState({
+            name: 'chenqiuling'
+        })
+    },
+    test: function (test) {
+        this.setState({
+            name: test
+        })
+    },
+    render: function () {
+        return <div>
+            Hello
+            <Name name={this.state.name} change={this.change} onTest={this.test}/>
+        </div>;
     }
-  },
-  change: function () {
-      //const name = 'chenqiuling';
-      this.setState({
-          name: 'chenqiuling'
-      })
-  },
-  render: function() {
-    return <div>
-      Hello
-      <Name  name={this.state.name} change={this.change}/>
-    </div>;
-  }
 });
 
 const Name = React.createClass({
-  change: function () {
-    this.props.change();
-  },
-  render: function() {
-    return <div>
-        {this.props.name}
-        <button onClick={this.change}>change</button>
+    change: function () {
+        this.props.change();
+    },
+    test: function () {
+        const test = $("input[name=test]:checked").val();
+        this.props.onTest(test);
+    },
+    render: function () {
+        return <div>
+            {this.props.name}
+            <br/>
+            <input type="radio" name="test" value="test"/>
+            <button onClick={this.test}>test</button>
+            <button onClick={this.change}>CQL</button>
 
-    </div>;
-  }
+        </div>;
+    }
 });
-
 
 
 ReactDOM.render(<Hello/>, document.getElementById('content'));
